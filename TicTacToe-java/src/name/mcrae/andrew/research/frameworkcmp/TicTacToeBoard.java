@@ -8,8 +8,11 @@ public class TicTacToeBoard {
 		TTTPiece(String sym){
 			this.symbol=sym;
 		}
-		public String symbol;
-		public String plural;
+		private String symbol;
+		
+		public String getSymbol() {
+			return symbol;
+		}
 	}
 	
 	private TTTPiece[][] slots;
@@ -25,8 +28,17 @@ public class TicTacToeBoard {
 	public TTTPiece getSlot(int x, int y) {
 		return slots[y][x];
 	}
+
+	public TTTPiece getSlot(Vec2D<Integer> pos) {
+		return getSlot(pos.getX(),pos.getY());
+	}
 	
 	public void setSlot(int x, int y, TTTPiece piece) {
 		slots[y][x] = piece;
 	}
+	
+	public void setSlot(Vec2D<Integer> pos, TTTPiece piece) {
+		setSlot(pos.getX(), pos.getY(), piece);;
+	}
+	
 }

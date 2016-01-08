@@ -7,7 +7,6 @@ import java.util.Collection;
  *  For some operations it will accept operands of different component types.
  * */
 public class Vec2D<E extends Number> extends ArrayList<E> {
-	
 
 	/** Add two Numbers together even if they are different Number types, 
 	 * returning whatever number subclass best preserves the precision of the inputs. */
@@ -38,7 +37,7 @@ public class Vec2D<E extends Number> extends ArrayList<E> {
 			return (F) new Float( a.floatValue() * b.floatValue() );
 		} else if (a instanceof Double || b instanceof Double) {
 			return (F) new Double( a.doubleValue() * b.doubleValue() );
-		} else throw new java.lang.IllegalArgumentException("Addition not supported for that Numeric data type");
+		} else throw new java.lang.IllegalArgumentException("Multiplication not supported for that Numeric data type");
 	}
 	
 	
