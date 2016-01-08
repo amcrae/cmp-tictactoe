@@ -27,10 +27,6 @@ public class Vec2D<E extends Number> extends ArrayList<E> {
 	/** Multiply two Numbers together even if they are different Number types, 
 	 * returning whatever number subclass best preserves the precision of the inputs. */
 	public static <F extends Number, G extends Number> F mulHetero(F a, G b) {
-		// Adding differently typed numeric vectors seems necessarily more complicated than it should be 
-		// considering all the numeric types extend Number.
-		//  e.g. Error: "The operator + is undefined for the argument type(s) java.lang.Number, java.lang.Number"
-		
 		if (a instanceof Integer && b instanceof Integer) {
 			return (F) new Integer( a.intValue() * b.intValue() );
 		} else if (a instanceof Float || b instanceof Float) {
@@ -95,8 +91,9 @@ public class Vec2D<E extends Number> extends ArrayList<E> {
 		return answer;	
 	}
 	
-	public Vec2D<E> minus(Vec2D other) {
-		Vec2D<E> op2 = other.scale(-1.0);
+	public Vec2D<E> minus(Vec2D<? extends Number> other) {
+		final Number neg1 = -1.0d;
+		Vec2D<?> op2 = other.scale(neg1);
 		Vec2D<E> answer = this.plus( op2 );
 		return answer;	
 	}
