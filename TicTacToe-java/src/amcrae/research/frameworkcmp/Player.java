@@ -1,4 +1,4 @@
-package name.mcrae.andrew.research.frameworkcmp;
+package amcrae.research.frameworkcmp;
 
 /** Generic representation of a player of games. 
  * 

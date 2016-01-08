@@ -1,6 +1,6 @@
-package name.mcrae.andrew.research.frameworkcmp;
+package amcrae.research.frameworkcmp;
 
-import name.mcrae.andrew.research.frameworkcmp.TicTacToeBoard.TTTPiece;
+import amcrae.research.frameworkcmp.TicTacToeBoard.TTTPiece;
 
 public class TTTMove {
 	

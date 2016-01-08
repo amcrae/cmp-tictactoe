@@ -1,4 +1,4 @@
-package name.mcrae.andrew.research.frameworkcmp;
+package amcrae.research.frameworkcmp;
 
 /** Represents the game state that results (or would result) 
  * from a player making (or hypothetically attempting to make) a particular move in Tic-Tac-Toe.

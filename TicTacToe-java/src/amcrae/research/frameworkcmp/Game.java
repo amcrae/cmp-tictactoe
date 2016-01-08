@@ -1,4 +1,4 @@
-package name.mcrae.andrew.research.frameworkcmp;
+package amcrae.research.frameworkcmp;
 
 /** This high-level interface represents some of the basic state of a game that is viewed/controlled by other classes in the framework comparison project.
  *  In theory it only needs to be implemented once as the model of the game and the different web/app frameworks will use this same code as their model in MVC.

@@ -1,11 +1,11 @@
-package name.mcrae.andrew.research.frameworkcmp.test;
-
-import name.mcrae.andrew.research.frameworkcmp.Vec2D;
+package amcrae.research.frameworkcmp.test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import org.junit.Test;
+
+import amcrae.research.frameworkcmp.Vec2D;
 import junit.framework.TestCase;
 
 public class Vec2DTest extends TestCase {
