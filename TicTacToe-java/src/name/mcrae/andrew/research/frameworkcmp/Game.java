@@ -4,14 +4,15 @@ public interface Game {
 
 	int getGameId();
 	GameType getGameType();
-	GameState getState();
 	Player[] getPlayers();
+	void playerJoins(Player p);
+	void playerLeaves(Player p);
+	GameState getState();
 	
 	public enum GameState {
 		INVITING,
 		PLAY,
 		ENDED
 	}
-	
 	
 }
