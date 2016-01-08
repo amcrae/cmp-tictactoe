@@ -1,6 +1,11 @@
 package amcrae.research.frameworkcmp;
 
-public class TicTacToeBoard {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TicTacToeBoard implements Serializable {
 
 	public enum TTTPiece {
 		NOUGHT("Ο"), CROSS("Χ"), TRIANGLE("Δ");
@@ -15,9 +20,31 @@ public class TicTacToeBoard {
 		}
 	}
 	
+	
 	private TTTPiece[][] slots;
 	private int w;
 	private int h;
+	
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(slots);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+			TicTacToeBoard other = (TicTacToeBoard)obj;
+			return Arrays.deepEquals(this.slots, other.slots);
+		} catch (ClassCastException cce) {
+			return false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.deepToString(slots);
+	}
+
 	
 	public TicTacToeBoard(int width, int height) {
 		this.w = width;
@@ -39,6 +66,18 @@ public class TicTacToeBoard {
 	
 	public void setSlot(Vec2D<Integer> pos, TTTPiece piece) {
 		setSlot(pos.getX(), pos.getY(), piece);;
+	}
+	
+	public List<Vec2D<Integer>> getFreeSlots() {
+		List<Vec2D<Integer>> answer = new ArrayList<Vec2D<Integer>>(w*h);
+		for (int y=0; y<h; y++) {
+			for (int x=0; x<w; x++) {
+				Vec2D<Integer> pos = new Vec2D<Integer>(x, y);
+				TTTPiece sym = getSlot(pos);
+				if (sym==null)	answer.add(pos);
+			}
+		}
+		return answer;
 	}
 	
 }
