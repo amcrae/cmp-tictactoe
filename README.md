@@ -36,8 +36,8 @@ Phase 2 will be defining the scoring criteria that will be used on all the frame
 Phase 3 will be iterating through different web application frameworks and implementing a web UI on top of the basic game logic.
 The web application frameworks which will be tested initially are:
 
-|Framework Name |Version | Main Pattern | DHTML? | AJAX? | Rationale for inclusion | Examples |  
-| ------------- |------- | ------------ | ------ | ----- | ----------------- |  
+| Framework Name | Version | Main Pattern | DHTML? | AJAX? | Rationale for inclusion | Examples |  
+| ------------- |------- | ------------ | ------ | ----- | ----------------- | ----------------- |  
 | Apache Wicket | 7.0 | Pull MVC | Y | Y | Made by some of the people who built Tapestry. | http://builtwithwicket.tumblr.com |  
 | JSF 			| 2.2 | Pull MVC | Y | Y | The official Sun/Oracle endorsed option.| ? |  
 | Spring MVC  | 4.2.2 | Push MVC | ? | ? | Push instead of Pull, and has Spring support. | ? |
