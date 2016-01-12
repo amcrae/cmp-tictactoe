@@ -25,8 +25,8 @@ The two main valuable outcomes of the project should be:
 ##Phase 1 - Core Application Domain Library
 Phase 1 is specifying and building the core logic of Tic-Tac-Toe, such as game board and player state representation, gameplay logic, and some extra social features. In phase 1 there is no GUI and the software can be driven through test harnesses only. (Maybe there will be a command line UI if time permits.)
 
-The desired page features and layout are written in a OpenOffice document:
-  [GameDesign/TicTacToe-screens.odt](/blob/master/GameDesign/TicTacToe-screens.odt) 
+The desired page features and layout are written in a OpenOffice document:  
+  [GameDesign/TicTacToe-screens.odt](GameDesign/TicTacToe-screens.odt) 
 
 To make the test authentic it will be necessary to implement a subset of the features and release them as a tagged version "R1.0", then implement the rest of the features and possibly change the arity (multiplicity) of some object relationships, then release this final library as a later version "R2.0". Similarly each web framework implementation will have a "R1.0" and "R2.0" version. This allows the realistic process of adding features to an existing GUI to be trialled in all the frameworks. The authenticity of the final comparison is likely to rely heavily on how severe the changes are between "R1.0" and "R2.0", as the more upheaval that can be efficiently implemented the better the framework will be over the lifecycle of a product. 
 
