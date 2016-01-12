@@ -29,19 +29,23 @@ To make the test authentic it will be necessary to implement a subset of the fea
 
 It is also possible that good design will make more difference than the technology choice when coping with requirement volatility. This prompts the question of whether the R1.0 core design should be deliberately designed badly in order to show web technology differences more clearly. On the other hand, a dramatic redesign is occasionally contemplated and rarely done early in the life of a product, because there is rarely a desire by customers or management to spend money on improving the internal design purity of a product which appears to work acceptably on the outside. Probably the best answer here, remembering the purpose of the comparison project, is yes the design should be bad because any technology that makes a rework less costly to do is more likely to result in design improvements actually being funded.
 
+One realistic source of requirement volatility is feature creep, so making the initial design simplistic can be done by simply limiting the number of features supported. In this project the R1.0 functionality will be a single web page which allows two people at the same client browser to enter their player names and play the game. The R2.0 functionality will include all the other social features that were anticipated. This upgrade will require the player name entry form to move from the Game page to the Lobby page, but the player name must be displayed on the Game page in the same manner as R1.0.
+
+
 ##Phase 2 - Technology Analysis Plan and Metrics
 Phase 2 will be defining the scoring criteria that will be used on all the frameworks, so that the activities that need to be recorded/rated during development are known in advance. This is done after the core game logic has been completed so that the types of GUI construction tasks that will be needed are better understood. 
 
 ##Phase 3 - Web Framework Implementations 
-Phase 3 will be iterating through different web application frameworks and implementing a web UI on top of the basic game logic.
+Phase 3 will be iterating through different web application frameworks and implementing a web UI on top of the basic game logic according to the release R1.0 requirements, then going back through all the frameworks and adding the R2.0 functionality, noting the required effort and other metrics along the way.
+
 The web application frameworks which will be tested initially are:
 
 | Framework Name | Version | Main Pattern | DHTML? | AJAX? | Rationale for inclusion | Examples |  
 | ------------- |------- | ------------ | ------ | ----- | ----------------- | ----------------- |  
 | Apache Wicket | 7.0 | Pull MVC | Y | Y | Made by some of the people who built Tapestry. | http://builtwithwicket.tumblr.com |  
 | JSF 			| 2.2 | Pull MVC | Y | Y | The official Sun/Oracle endorsed option.| ? |  
-| Spring MVC  | 4.2.2 | Push MVC | ? | ? | Push instead of Pull, and has Spring support. | ? |
+| Spring MVC  | 4.2.2 | Push MVC | ? | ? | Push instead of Pull and has Spring support. | ? |
 
 ##Phase 4 - Framework Comparison
-Phase 4 will compare the frameworks both subjectively and objectively. Rather than pick a "winner" the goal is to describe what type of project each framework would be the best option to choose. The analysis of project types and the choice of project parameters is therefore determined by the need to differentiate between one implementation technology option versus another, rather than an independent set of project attributes that covers the entire breadth/depth of global software project diversity.
+Phase 4 will compare the frameworks both subjectively and objectively. Rather than pick a "winner" the goal is to describe the type of project for which each framework would be the best option. The analysis of project types and the choice of project characteristic parameters is therefore determined by the need to differentiate between one implementation technology option versus another, rather than an independent set of project attributes that covers the entire breadth/depth of global software project diversity. 
 It is also possible that the only significant difference between one framework and another is in a aspect that was not foreseen at the outset and so some modification of comparison criteria may be needed. This could certainly happen as more web frameworks are discovered and implemented in the project.
