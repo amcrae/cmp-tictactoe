@@ -7,6 +7,9 @@ import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import amcrae.research.frameworkcmp.TicTacToeBoard.TTTPiece;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -73,14 +76,21 @@ public class TicTacToeGame implements Game {
 	@Override
 	public void playerJoins(Player p) {
 		//TODO: solve the Player --> TTTPlayer transition problem. Does a ChatPlayer create a TTTPlayer prior to joining?
+		TTTPlayer tp = null; 
 		try {
-			TTTPlayer tp = (TTTPlayer)p; 
-			if (currentPlayers.contains(tp)) throw new IllegalArgumentException();
-			if (!currentPlayers.add(tp)) throw new IllegalStateException();
-			TTTPiece piece = getFreePiece();
-			pieceAssignment.put(piece, tp);
+			tp = (TTTPlayer)p; 
 		} catch (ClassCastException cce) {
 			throw new IllegalArgumentException("Player was not a TTTPlayer");
+		}
+		if (currentPlayers.contains(tp)) throw new IllegalArgumentException();
+		if (!currentPlayers.add(tp)) throw new IllegalStateException();
+		TTTPiece piece = getFreePiece();
+		if (piece==null) throw new MissingResourceException("No free game pieces for that player.", "TicTacToeGame pieceAssignment", "TTTPiece");
+		pieceAssignment.put(piece, tp);
+		try {
+			tp.setPiece(this, piece);
+		} catch (Exception ioe) {
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "TTTPlayer threw exception during setPiece : "+ ioe.getMessage() + "\n Ignoring exception and continuing game.", new Object[]{p} );
 		}
 	}
 
