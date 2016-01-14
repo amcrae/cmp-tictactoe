@@ -1,5 +1,7 @@
 package amcrae.research.frameworkcmp;
 
+import java.util.Date;
+
 /** This high-level interface represents some of the basic state of a game that is viewed/controlled by other classes in the framework comparison project.
  *  In theory it only needs to be implemented once as the model of the game and the different web/app frameworks will use this same code as their model in MVC.
  *  
@@ -41,5 +43,8 @@ public interface Game {
 		/** Game has ended for some reason. */
 		ENDED
 	}
+	
+	/** Get the real world timestamp of when the game began waiting for a player to make their move. */
+	public Date getGameStartTime();
 	
 }

@@ -2,9 +2,8 @@ package amcrae.research.frameworkcmp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,15 +13,40 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /** Most of the game logic and rules for Tic-Tac-Toe will be implemented here. */
 public class TicTacToeGame implements Game {
+	/** The no-arg constructor will make a 2-player 3x3 Tic-Tac-Toe with no instructions. */
+	public TicTacToeGame() {
+		this.gameId = getNextId(); 
+		GameType gt = new GameType();
+		gt.setDimensions(new int[]{3,3} );
+		gt.setName("TicTacToe 2P 3x3");
+		gt.setGameTypeId(1);
+		gt.setPlayersMax(2);
+		gt.setPlayersMin(2);
+		gt.setBriefInstruction("Place your piece on the board to get 3 in a row.");
+		this.gameType = gt;
+		this.gameState = GameState.PREREQUISITES;
+	}
 	
 	//TODO: Need a general unique id generator service in the system.
 	private int gameId;
+	
+	private static int nextid = 1;
+	private static synchronized int getNextId() {
+		return nextid++;
+	}
 	
 	@Override
 	public int getGameId() {
 		return gameId;
 	}
 
+	private Date gameStarted;
+	
+	@Override
+	public Date getGameStartTime() {
+		return gameStarted;
+	}
+	
 	private GameType gameType;
 	
 	@Override
@@ -66,8 +90,10 @@ public class TicTacToeGame implements Game {
 	}
 
 	private List<TTTMove> history = new LinkedList<TTTMove>();
-	
-	public TTTMove[] getHistory(long after_timestamp) {
+
+	/** Show the list of moves which occurred after the given real world time, which returns all moves made in the game when the after_timestamp parameter is before the start of the game.
+	 * */
+	public TTTMove[] getHistory(Date after_timestamp) {
 		//TODO: decide if SortedSet would be better, or some other temporal index used for efficiently returning a time range.
 		throw new NotImplementedException();
 	}
@@ -104,9 +130,19 @@ public class TicTacToeGame implements Game {
 		throw new NotImplementedException();
 	}
 
+	/** TODO: Check if a proposed move is permitted and what Board state it will create if played. 
+	 * Useful for validating a player's move or helping bots plan their next move. */
+	public TTTResult check(TTTMove proposal) {
+		throw new NotImplementedException();
+	}
+	
 	/** TODO: A particular move is played or attempted to be played, which results in a TTTResult and possibly a new game state if the move is permitted. */
 	public TTTResult playMove(TTTMove move) {
 		throw new NotImplementedException();
 	}
 	
+	/** TODO: Check if this is a final state where no further moves are possible, such as a win or a draw. */
+	public boolean isFinalState(TicTacToeBoard boardState) {
+		throw new NotImplementedException();
+	}
 }
