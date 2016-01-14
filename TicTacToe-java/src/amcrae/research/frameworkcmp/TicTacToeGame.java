@@ -27,6 +27,14 @@ public class TicTacToeGame implements Game {
 		this.gameState = GameState.PREREQUISITES;
 	}
 	
+	/** Start a game with the given initial players, regardless of whether players are Human or Bots. */
+	public static TicTacToeGame startDefaultMultiPlayerGame(TTTPlayer[] players) {
+		TicTacToeGame game = new TicTacToeGame();
+		for ( TTTPlayer p : players)
+			game.playerJoins(p);
+		return game;
+	}
+	
 	//TODO: Need a general unique id generator service in the system.
 	private int gameId;
 	
@@ -89,15 +97,6 @@ public class TicTacToeGame implements Game {
 		return gameState;
 	}
 
-	private List<TTTMove> history = new LinkedList<TTTMove>();
-
-	/** Show the list of moves which occurred after the given real world time, which returns all moves made in the game when the after_timestamp parameter is before the start of the game.
-	 * */
-	public TTTMove[] getHistory(Date after_timestamp) {
-		//TODO: decide if SortedSet would be better, or some other temporal index used for efficiently returning a time range.
-		throw new NotImplementedException();
-	}
-	
 	/** TODO: return the player that the game is waiting for to make the current move.
 	 * @return null when the game is over or is not possible to identify a player for the next move because the slot is empty. 
 	 * */
@@ -119,6 +118,15 @@ public class TicTacToeGame implements Game {
 		throw new IllegalStateException("No free pieces for player to use.");
 	}
 	
+	private List<TTTMove> history = new LinkedList<TTTMove>();
+
+	/** Show the list of moves which occurred after the given real world time, which returns all moves made in the game when the after_timestamp parameter is before the start of the game.
+	 * */
+	public TTTMove[] getHistory(Date after_timestamp) {
+		//TODO: decide if SortedSet would be better, or some other temporal index used for efficiently returning a time range.
+		throw new NotImplementedException();
+	}
+
 	/** Return the player that owns/plays the given board piece.*/
 	public TTTPlayer getSymbolPlayer(TTTPiece symbol) {
 		return pieceAssignment.get(symbol);
@@ -132,17 +140,17 @@ public class TicTacToeGame implements Game {
 
 	/** TODO: Check if a proposed move is permitted and what Board state it will create if played. 
 	 * Useful for validating a player's move or helping bots plan their next move. */
-	public TTTResult check(TTTMove proposal) {
-		throw new NotImplementedException();
-	}
-	
-	/** TODO: A particular move is played or attempted to be played, which results in a TTTResult and possibly a new game state if the move is permitted. */
-	public TTTResult playMove(TTTMove move) {
+	public TTTResult check(TicTacToeBoard state, TTTMove proposal) {
 		throw new NotImplementedException();
 	}
 	
 	/** TODO: Check if this is a final state where no further moves are possible, such as a win or a draw. */
 	public boolean isFinalState(TicTacToeBoard boardState) {
+		throw new NotImplementedException();
+	}
+	
+	/** TODO: A particular move is played or attempted to be played, which results in a TTTResult and possibly a new game state if the move is permitted. */
+	public TTTResult playMove(TTTMove move) {
 		throw new NotImplementedException();
 	}
 }
