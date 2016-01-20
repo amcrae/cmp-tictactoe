@@ -34,12 +34,9 @@ public class TicTacToeGame3x3Test {
 
 	@Test
 	public void testGetGameId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetGameStartTime() {
-		fail("Not yet implemented");
+		assertTrue("Should be greater than 0", defaultGame.getGameId()>0);
+		TicTacToeGame g2 = new TicTacToeGame();
+		assertNotEquals("Should be different per game.", g2.getGameId(), defaultGame.getGameId());
 	}
 
 	@Test
@@ -71,6 +68,11 @@ public class TicTacToeGame3x3Test {
 	public void testPlayerLeaves() {
 		fail("Not yet implemented");
 	}
+
+	@Test
+	public void testCheck() {
+		fail("Not yet implemented");
+	}
 	
 	@Test
 	public void testGetCurrentMovePlayer() {
@@ -78,17 +80,7 @@ public class TicTacToeGame3x3Test {
 	}
 
 	@Test
-	public void testGetHistory() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCurrentBoard() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCheck() {
+	public void testGetGameStartTime() {
 		fail("Not yet implemented");
 	}
 
@@ -98,10 +90,21 @@ public class TicTacToeGame3x3Test {
 	}
 
 	@Test
+	public void testGetCurrentBoard() {
+		fail("Not yet implemented");
+	}
+
+	
+	@Test
+	public void testGetHistory() {
+		fail("Not yet implemented");
+	}
+
+	@Test
 	public void testIsFinalState() {
 		fail("Not yet implemented");
 	}
-	
+
 	@Test
 	public void testStartDefaultMultiPlayerGame() {
 		fail("Not yet implemented");
