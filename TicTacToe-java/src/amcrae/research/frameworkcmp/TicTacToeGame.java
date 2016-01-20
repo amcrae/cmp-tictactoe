@@ -21,7 +21,7 @@ public class TicTacToeGame implements Game {
 		this.gameId = getNextId(); 
 		GameType gt = new GameType();
 		gt.setDimensions(new int[]{3,3} );
-		gt.setName("TicTacToe 2P 3x3");
+		gt.setName("Tic-Tac-Toe 2P 3x3");
 		gt.setGameTypeId(1);
 		gt.setPlayersMax(2);
 		gt.setPlayersMin(2);

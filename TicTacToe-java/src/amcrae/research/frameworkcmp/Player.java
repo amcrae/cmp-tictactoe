@@ -7,7 +7,7 @@ package amcrae.research.frameworkcmp;
 public interface Player {
 
 	/** This name is required to be unique on the server. */
-	String getPlayerNamme();
+	String getPlayerName();
 	
 	/** Inform the player that a move has been made so they can query the game state and act accordingly. */
 	void notifyMoveMade(Game g);
