@@ -20,7 +20,6 @@ public class TicTacToeBoard implements Serializable {
 		}
 	}
 	
-	
 	private TTTPiece[][] slots;
 	private int w;
 	private int h;
@@ -42,15 +41,30 @@ public class TicTacToeBoard implements Serializable {
 	
 	@Override
 	public String toString() {
-		return Arrays.deepToString(slots);
+		return this.getClass().getName() + String.format(" %dx%d %s", w,h, Arrays.deepToString(slots) );
+	}
+	
+	
+	public TicTacToeBoard() {
+		super();
 	}
 
+	/** A copy constructor*/
+	public TicTacToeBoard(TicTacToeBoard orig) {
+		this();
+		this.h = orig.h;
+		this.w = orig.w;
+		this.slots = Arrays.copyOf(orig.slots, orig.slots.length, TTTPiece[][].class);
+	}
 	
+	/** Usual constructor */
 	public TicTacToeBoard(int width, int height) {
+		this();
 		this.w = width;
 		this.h = height;
 		this.slots = new TTTPiece[h][w];
 	}
+	
 	
 	public TTTPiece getSlot(int x, int y) {
 		return slots[y][x];
@@ -79,5 +93,5 @@ public class TicTacToeBoard implements Serializable {
 		}
 		return answer;
 	}
-	
+
 }

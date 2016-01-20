@@ -1,5 +1,7 @@
 package amcrae.research.frameworkcmp;
 
+import java.util.Arrays;
+
 public class GameType {
 
 	private int gameTypeId;
@@ -53,4 +55,8 @@ public class GameType {
 		this.fullRules = fullRules;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("GameType%d(%s)", gameTypeId, name); //, Arrays.toString(dimensions) 
+	}
 }

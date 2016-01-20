@@ -1,5 +1,6 @@
 package amcrae.research.frameworkcmp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,7 +16,8 @@ import amcrae.research.frameworkcmp.TicTacToeBoard.TTTPiece;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /** Most of the game logic and rules for Tic-Tac-Toe will be implemented here. */
-public class TicTacToeGame implements Game {
+public class TicTacToeGame implements Game, Serializable, Cloneable {
+	
 	/** The no-arg constructor will make a 2-player 3x3 Tic-Tac-Toe with no instructions. */
 	public TicTacToeGame() {
 		this.gameId = getNextId(); 
@@ -28,6 +30,11 @@ public class TicTacToeGame implements Game {
 		gt.setBriefInstruction("Place your piece on the board to get 3 in a row.");
 		this.gameType = gt;
 		this.gameState = GameState.PREREQUISITES;
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	/** Start a game with the given initial players, regardless of whether players are Human or Bots. */
@@ -92,6 +99,7 @@ public class TicTacToeGame implements Game {
 		} catch (Exception ioe) {
 			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "TTTPlayer threw exception during setPiece : "+ ioe.getMessage() + "\n Ignoring exception and continuing game.", new Object[]{p} );
 		}
+		if (canStart()) startGame();
 	}
 
 	@Override
@@ -107,6 +115,20 @@ public class TicTacToeGame implements Game {
 		return gameState;
 	}
 
+	private void startGame() {
+		this.gameState = GameState.PLAY;
+		if (this.gameStarted==null) this.gameStarted = new Date();
+	}
+	
+	/** are all the pre-requisites for starting the game satisfied? */
+	public boolean canStart() {
+		return (
+				this.currentPlayers.size()>= gameType.getPlayersMin() 
+				&& this.currentPlayers.size()<=gameType.getPlayersMax()
+				&& this.pieceAssignment.entrySet().size() == currentPlayers.size()
+		);
+	}
+	
 	/** TODO: return the player that the game is waiting for to make the current move.
 	 * @return null when the game is over or is not possible to identify a player for the next move because the slot is empty. 
 	 * */
@@ -142,10 +164,12 @@ public class TicTacToeGame implements Game {
 		return pieceAssignment.get(symbol);
 	}
 	
+	TicTacToeBoard currentBoard;
+	
 	/** TODO: Return the current state of the board, which is basically information about where players have placed their pieces so far. 
 	 * This should always be valid state even when the game has not started or the game is over. */
 	public TicTacToeBoard getCurrentBoard() {
-		throw new NotImplementedException();
+		return new TicTacToeBoard(currentBoard);
 	}
 
 	/** TODO: Check if a proposed move is permitted and what Board state it will create if played. 
@@ -162,5 +186,21 @@ public class TicTacToeGame implements Game {
 	/** TODO: A particular move is played or attempted to be played, which results in a TTTResult and possibly a new game state if the move is permitted. */
 	public TTTResult playMove(TTTMove move) {
 		throw new NotImplementedException();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		TicTacToeGame o2 = (TicTacToeGame) obj;
+		return o2.gameId == gameId;
+	}
+	
+	@Override
+	public int hashCode() {
+		return gameId ^ 17;
+	}
+	
+	@Override
+	public String toString() {
+		return "TicTacToe #" + this.gameId + "{" + gameType.toString() + ", State:"+ gameState.toString()+"}";
 	}
 }

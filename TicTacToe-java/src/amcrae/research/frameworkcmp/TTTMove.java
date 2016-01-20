@@ -10,7 +10,7 @@ public class TTTMove {
 		RESIGN
 	}
 	
-	private long timestamp;
+	private long timestamp = System.currentTimeMillis();
 	private TTTPlayer subject;
 	private MoveType verb;
 	private TTTPiece object;
