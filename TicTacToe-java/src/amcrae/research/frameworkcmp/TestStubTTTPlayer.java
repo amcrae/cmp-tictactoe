@@ -17,7 +17,6 @@ public class TestStubTTTPlayer implements TTTPlayer {
 	public String getPlayerName() {
 		return playerName;
 	}
-
 	
 	public class ClientState {
 		public TicTacToeGame game;

@@ -148,6 +148,12 @@ public class TicTacToeGame3x3Test {
 		assertNotEquals("Wrong player was removed", p2, defaultGame.getPlayers()[0] );
 	}
 
+	@Test
+	public void testGetCurrentMovePlayer() {
+		add2Players();
+		assertEquals("Player 1 with noughts should go first", players.get(0), defaultGame.getCurrentMovePlayer() );
+	}
+	
 	protected final Vec2D<Integer> MIDDLE_3x3 = new Vec2D<>(1,1);
 	
 	@Test
@@ -166,12 +172,23 @@ public class TicTacToeGame3x3Test {
 		assertEquals("Didn't get played piece at assigned position", TTTPiece.NOUGHT, r0.getNewState().getSlot(MIDDLE_3x3) );
 		assertEquals("Game state wasn't expected this early.", MoveResult.CONTINUE, r0.getMoveResult() );
 	}
-	
+
 	@Test
-	public void testGetCurrentMovePlayer() {
+	public void testCheck_PlayOutOfTurn1() {
 		add2Players();
-		assertEquals("Player 1 with noughts should go first", players.get(0), defaultGame.getCurrentMovePlayer() );
+		//based on previous tests, Player 1 NOUGHTS should go first.
+		TicTacToeBoard s0 = new TicTacToeBoard(3,3);
+		TTTMove m0 = new TTTMove();
+		TTTPlayer p =  defaultGame.getSymbolPlayer(TTTPiece.CROSS);
+		m0.setSubject(p);
+		m0.setVerb(MoveType.PLACE_PIECE);
+		m0.setObject(TTTPiece.NOUGHT);
+		m0.setPosition(MIDDLE_3x3);
+		TTTResult r0 = defaultGame.check(s0, m0);
+		assertTrue("Out-of-turn first move was allowed", ! r0.isPermitted() );
 	}
+
+	
 
 	@Test
 	public void testGetGameStartTime() {
@@ -188,12 +205,65 @@ public class TicTacToeGame3x3Test {
 
 	@Test
 	public void testPlayMove() {
-		fail("Not yet implemented");
+		//duplicated from check
+		add2Players();
+		TTTMove m0 = new TTTMove();
+		TTTPlayer p =  defaultGame.getSymbolPlayer(TTTPiece.NOUGHT);
+		m0.setSubject(p);
+		m0.setVerb(MoveType.PLACE_PIECE);
+		m0.setObject(TTTPiece.NOUGHT);
+		m0.setPosition(MIDDLE_3x3);
+		TTTResult r0 = defaultGame.playMove(m0);
+		assertTrue("Valid first move was not allowed", r0.isPermitted() );
+		assertNotNull("Didn't get any piece at assigned position", r0.getNewState().getSlot(MIDDLE_3x3) );
+		assertEquals("Didn't get played piece at assigned position", TTTPiece.NOUGHT, r0.getNewState().getSlot(MIDDLE_3x3) );
+		assertEquals("Game state wasn't expected this early.", MoveResult.CONTINUE, r0.getMoveResult() );
+
+		TTTMove m1 = new TTTMove();
+		TTTPlayer p2 =  defaultGame.getSymbolPlayer(TTTPiece.CROSS);
+		m1.setSubject(p2);
+		m1.setVerb(MoveType.PLACE_PIECE);
+		m1.setObject(TTTPiece.CROSS);
+		Vec2D<Integer> pos1 = new Vec2D<Integer>(2,0);
+		m1.setPosition(pos1);
+		TTTResult r1 = defaultGame.playMove(m1);
+		assertTrue("Valid 2nd move was not allowed", r1.isPermitted() );
+		assertNotNull("Didn't get any piece at assigned position", r1.getNewState().getSlot(pos1) );
+		assertEquals("Didn't get played piece at assigned position", TTTPiece.CROSS, r1.getNewState().getSlot(pos1) );
+		assertEquals("Game state wasn't expected this early.", MoveResult.CONTINUE, r1.getMoveResult() );
 	}
 
+	
+	private void playTraditionalOpener() {
+		TTTMove m0 = new TTTMove();
+		TTTPlayer p =  defaultGame.getSymbolPlayer(TTTPiece.NOUGHT);
+		m0.setSubject(p);
+		m0.setVerb(MoveType.PLACE_PIECE);
+		m0.setObject(TTTPiece.NOUGHT);
+		m0.setPosition(MIDDLE_3x3);
+		defaultGame.playMove(m0);
+	}
+	
 	@Test
-	public void testGetCurrentBoard() {
-		fail("Not yet implemented");
+	public void testGetCurrentBoard() throws CloneNotSupportedException {
+		TicTacToeGame s0 = (TicTacToeGame)defaultGame.clone();
+				
+		TicTacToeBoard b0 = defaultGame.getCurrentBoard();
+		assertNotNull(b0);
+		add2Players();
+		playTraditionalOpener();
+
+		TTTMove m1 = new TTTMove();
+		TTTPlayer p2 =  defaultGame.getSymbolPlayer(TTTPiece.CROSS);
+		m1.setSubject(p2);
+		m1.setVerb(MoveType.PLACE_PIECE);
+		m1.setObject(TTTPiece.CROSS);
+		Vec2D<Integer> pos1 = new Vec2D<Integer>(2,0);
+		m1.setPosition(pos1);
+		defaultGame.playMove(m1);
+		
+		assertNotEquals( s0, defaultGame);
+		assertNotEquals( b0, defaultGame.getCurrentBoard() );
 	}
 
 	
