@@ -12,6 +12,8 @@ import java.util.MissingResourceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import amcrae.research.frameworkcmp.TTTMove.MoveType;
+import amcrae.research.frameworkcmp.TTTResult.MoveResult;
 import amcrae.research.frameworkcmp.TicTacToeBoard.TTTPiece;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -30,6 +32,7 @@ public class TicTacToeGame implements Game, Serializable, Cloneable {
 		gt.setBriefInstruction("Place your piece on the board to get 3 in a row.");
 		this.gameType = gt;
 		this.gameState = GameState.PREREQUISITES;
+		this.currentBoard = new TicTacToeBoard(gt.getDimensions()[0], gt.getDimensions()[1]);
 	}
 	
 	@Override
@@ -175,11 +178,50 @@ public class TicTacToeGame implements Game, Serializable, Cloneable {
 	/** TODO: Check if a proposed move is permitted and what Board state it will create if played. 
 	 * Useful for validating a player's move or helping bots plan their next move. */
 	public TTTResult check(TicTacToeBoard state, TTTMove proposal) {
-		throw new NotImplementedException();
+		TTTResult res  = new TTTResult();
+		res.setLastMove(proposal);
+		if(   proposal.getVerb()==null
+		   || proposal.getVerb()==MoveType.PASS  /** May be needed internally as dummy/sentinel but no player is allowed to use it. */ 
+ 		) {
+			res.setPermitted(false);
+			res.setMoveResult(MoveResult.CONTINUE);
+			res.setNewState(state);
+		} else {
+			switch (proposal.getVerb()) {
+				case RESIGN: {
+					res.setPermitted(true);
+					res.setNewState(state);
+					res.setMoveResult(MoveResult.LOSE);
+				} break;
+				
+				case PLACE_PIECE: {
+					if (  proposal.getPosition().getX()>=gameType.getDimensions()[0]
+					   || proposal.getPosition().getY()>=gameType.getDimensions()[1]
+					   || proposal.getPosition().getX()<0 
+					   || proposal.getPosition().getY()<0		   
+					   || (state.getSlot( proposal.getPosition()) != null)
+					   || getSymbolPlayer(proposal.getObject()) != proposal.getSubject()
+					) {
+						res.setPermitted(false);
+						res.setNewState(state);
+						res.setMoveResult(MoveResult.CONTINUE);
+					} else {
+						res.setPermitted(true);
+						TicTacToeBoard newstate = new TicTacToeBoard(state);
+						newstate.setSlot(proposal.getPosition(),proposal.getObject());
+						res.setNewState(newstate);
+						res.setMoveResult( checkContinuation(newstate) );
+					}
+				} break;
+				
+				default: throw new IllegalArgumentException("Verb not allowed in current game state: "+proposal.getVerb().name() );
+			}
+		}
+		return res;
 	}
 	
 	/** TODO: Check if this is a final state where no further moves are possible, such as a win or a draw. */
-	public boolean isFinalState(TicTacToeBoard boardState) {
+	public MoveResult checkContinuation(TicTacToeBoard boardState) {
 		throw new NotImplementedException();
 	}
 	
