@@ -65,7 +65,7 @@ public class TicTacToeBoard implements Serializable {
 		this.slots = new TTTPiece[h][w];
 	}
 	
-	
+	/** Co-ordinates are zero-based and bottom left is (0,0). */
 	public TTTPiece getSlot(int x, int y) {
 		return slots[y][x];
 	}
