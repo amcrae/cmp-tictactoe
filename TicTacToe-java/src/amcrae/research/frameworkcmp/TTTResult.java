@@ -8,7 +8,8 @@ public class TTTResult {
 	public enum MoveResult {
 		CONTINUE,
 		DRAW,
-		WIN
+		WIN,
+		LOSE
 	}
 	
 	private TTTMove lastMove;
@@ -34,6 +35,7 @@ public class TTTResult {
 	public void setPermitted(boolean permitted) {
 		this.permitted = permitted;
 	}
+	/** The state of the board may not be valid if isPermitted is false. */
 	public TicTacToeBoard getNewState() {
 		return newState;
 	}
